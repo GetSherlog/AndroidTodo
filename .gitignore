@@ -7,7 +7,7 @@
 # Gradle & Android Studio
 ############################################
 .gradle/
-.local.properties
+local.properties
 .idea/
 .vscode/
 *.iml
