@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.to_docompose.navigation.SetupNavigation
 import com.example.to_docompose.ui.theme.ToDoComposeTheme
 import com.example.to_docompose.ui.viewmodels.SharedViewModel
+import com.newrelic.agent.android.NewRelic
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +23,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        NewRelic
+            .withApplicationToken(BuildConfig.NEW_RELIC_APP_TOKEN)
+            .start(this.applicationContext)
+
+
         installSplashScreen()
 //        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {

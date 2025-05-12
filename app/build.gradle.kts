@@ -1,11 +1,17 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("com.newrelic.agent.android")
     kotlin("plugin.serialization") version "2.0.20"
 }
+
+val newRelicToken: String = gradleLocalProperties(rootDir, providers)
+    .getProperty("NEW_RELIC_APP_TOKEN")
 
 android {
     compileSdk = 34
@@ -19,6 +25,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField("String", "NEW_RELIC_APP_TOKEN", "\"$newRelicToken\"")
     }
 
     buildTypes {
@@ -38,6 +46,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     packaging {
@@ -83,4 +92,6 @@ dependencies {
 
     // KotlinX Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+
+    implementation("com.newrelic.agent.android:android-agent:7.6.6")
 }

@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "To-Do Compose"
+rootProject.name = "Sherlog To-Do"
 include(":app")
